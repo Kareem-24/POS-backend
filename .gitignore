@@ -1,0 +1,15 @@
+# Build and output folders
+bin/
+obj/
+.vs/
+.vscode/
+
+# Build Results
+*.dll
+*.exe
+*.app
+*.ipa
+*.dmg
+*.msi
+*.dep
+*.psd1
