@@ -18,21 +18,7 @@ namespace POS.Controllers
             _logger = logger;
             _mediator = mediator;
         }
-
-        [HttpPost]
-        public async Task<IActionResult> AddUser(AddUserCommand command)
-        {
-            var result = await _mediator.Send(command);
-
-            if (result != null)
-            {
-                return CreatedAtAction(nameof(AddUserCommand), new { id = command.Id }, command);
-            }
-
-            return BadRequest("Unable to add user.");
-        }
-
-
+      
 
         [HttpPost]
         public async Task<IActionResult> GetUserById([FromBody] GetUserByIdQuery command)
