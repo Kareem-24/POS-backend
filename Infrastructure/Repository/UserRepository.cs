@@ -14,5 +14,6 @@ namespace Infrastructure.Repository
         public UserRepository(PosContext context) : base(context)
         {
         }
+      
     }
 }

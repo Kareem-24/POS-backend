@@ -1,13 +1,14 @@
-﻿using Infrastructure.Data;
+﻿using Core.Entities;
+using Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System.Net;
 using System.Text;
 
-namespace POS.Extensions
+namespace Infrastructure.Extensions
 {
     public static class ServiceExtensions
     {
@@ -20,7 +21,7 @@ namespace POS.Extensions
 
         public static void ConfigureIdentity(this IServiceCollection services)
         {
-            var builder = services.AddIdentityCore<PosContext>(o =>
+            var builder = services.AddIdentityCore<User>(o =>
             {
                 o.Password.RequireDigit = true;
                 o.Password.RequireLowercase = false;

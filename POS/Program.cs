@@ -1,7 +1,6 @@
 using Core.Repository;
-using Infrastructure.Data;
 using Infrastructure.Repository;
-using POS.Extensions;
+using Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

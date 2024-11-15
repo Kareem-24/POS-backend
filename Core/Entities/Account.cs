@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Core.Entities
 {
-    public class Accounts
+    public class Account: EntityBase
     {
-        public int ID { get; set; }
         public required string Name { get; set; }
         public string? Phone1 { get; set; }
         public string? Phone2 { get; set; }
@@ -20,7 +19,7 @@ namespace Core.Entities
         public string? Address3 { get; set; }
         public string? Addres4 { get; set; }
         public ClientType ClientType { get; set; }
-        public bool IsShown { get; set; }
+        public bool? IsShown { get; set; }
         public decimal Disscount { get; set; }
     }
 }

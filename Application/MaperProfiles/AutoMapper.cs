@@ -13,8 +13,10 @@ namespace Application.MaperProfiles
     {
         public AutoMapper()
         {
-            CreateMap<User, UserModel>();
-            CreateMap<UserModel, User>();
+            CreateMap<User, UserModel>().ReverseMap();
+            CreateMap<Category, CategoryModel>().ForMember(dest => dest.SubCategory, opt => opt.MapFrom(src => src.SubCategories)).ReverseMap();
+            CreateMap<SubCategory, SubCategoryModel>().ReverseMap();
+            CreateMap<Product, ProductModel>().ReverseMap();
         }
     }
 }

@@ -33,7 +33,7 @@ namespace POS.Controllers
             return BadRequest("Unable to add user.");
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> GetAllUsers(GetAllUsersQuery command)
         {
             var result = await _mediator.Send(command);

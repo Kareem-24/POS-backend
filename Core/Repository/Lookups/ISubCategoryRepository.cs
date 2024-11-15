@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Repository
+namespace Core.Repository.Lookups
 {
-    public interface IUserRepository:IRepository<User>
+    public interface ISubCategoryRepository : IRepository<SubCategory>
     {
-
     }
 }
