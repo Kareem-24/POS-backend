@@ -12,7 +12,13 @@ using System.Threading.Tasks;
 
 namespace Application.Services.Lookups
 {
-    public class CategoryService
+    public class CategoryService : IRequestHandler<GetCategoryByIdQuery,Result>,
+        IRequestHandler<GetAllCategoriesQuery, Result>,
+        IRequestHandler<GetAllCategoriesWithSubCategoryQuery, Result>,
+        IRequestHandler<AddCategoryCommand, Result>,
+        IRequestHandler<UpdateCategoryCommand, Result>,
+        IRequestHandler<DeleteCategoryCommand, Result>
+        
     {
 
         private readonly IUnitOfWork _unitOfWork;

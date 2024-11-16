@@ -12,7 +12,11 @@ using System.Threading.Tasks;
 
 namespace Application.Services.Lookups
 {
-    public class SubCategoryService
+    public class SubCategoryService : IRequestHandler<GetSubCategoryByIdQuery,Result>,
+         IRequestHandler<GetAllSubCategoriesQuery, Result>,
+         IRequestHandler<AddSubCategoryCommand, Result>,
+         IRequestHandler<UpdateSubCategoryCommand, Result>,
+         IRequestHandler<DeleteSubCategoryCommand, Result>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;

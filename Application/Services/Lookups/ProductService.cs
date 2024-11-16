@@ -12,7 +12,11 @@ using System.Threading.Tasks;
 
 namespace Application.Services.Lookups
 {
-    public class ProductService
+    public class ProductService: IRequestHandler<GetProductByIdQuery,Result>,
+        IRequestHandler<GetAllProductsQuery, Result>,
+        IRequestHandler<AddProductCommand, Result>,
+        IRequestHandler<UpdateProductCommand, Result>,
+        IRequestHandler<HideProductCommand, Result>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
