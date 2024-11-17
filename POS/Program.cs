@@ -12,11 +12,8 @@ builder.Services.ConfigureIdentity();
 builder.Services.ConfigureJWT(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(Program));
 
-builder.Services.AddMediatR(cfg =>
-{
-    // Registering handlers by scanning the current assembly
-    cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly());
-}); 
+var applicationAssembly = Assembly.Load("Application"); 
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(applicationAssembly));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
