@@ -12,7 +12,7 @@ namespace Core.Models
     {
         public int ID { get; set; }
         public required string Description { get; set; }
-        public List<SubCategoryModel>? SubCategory { get; set; }
+        public List<SubCategoryModel>? SubCategory { get; set; } = new List<SubCategoryModel>();
     }
 
 

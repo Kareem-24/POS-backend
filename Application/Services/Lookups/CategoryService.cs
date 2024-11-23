@@ -66,8 +66,15 @@ namespace Application.Services.Lookups
 
         public async Task<Result> Handle(GetAllCategoriesWithSubCategoryQuery request, CancellationToken cancellationToken)
         {
-            var category = await _unitOfWork.Category.GetAllCatgoriesWithSubCategory();
-            return Result.SuccessResult(category);
+            var categories = await _unitOfWork.Category.GetAllCatgoriesWithSubCategory();
+
+            if (categories == null || !categories.Any())
+            {
+                return Result.FailureResult("No categories found.");
+            }
+
+            var categoryList = _mapper.Map<List<CategoryModel>>(categories);
+            return Result.SuccessResult(categoryList);
         }
 
         public async Task<Result> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)

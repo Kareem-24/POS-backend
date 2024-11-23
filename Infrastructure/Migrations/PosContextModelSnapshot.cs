@@ -25,10 +25,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Core.Entities.Category", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
@@ -57,10 +54,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Core.Entities.Product", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("Barcode")
                         .HasColumnType("nvarchar(max)");
@@ -113,10 +107,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Core.Entities.SubCategory", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");

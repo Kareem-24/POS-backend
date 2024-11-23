@@ -10,7 +10,7 @@ namespace Core.Entities
     {
         public required string  Description { get; set; }
         public bool? IsActive { get; set; }
-        public ICollection<SubCategory>? SubCategories { get; set; }
+        public ICollection<SubCategory>? SubCategories { get; set; } 
 
 
     }

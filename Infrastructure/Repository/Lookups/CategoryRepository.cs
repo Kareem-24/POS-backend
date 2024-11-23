@@ -19,7 +19,7 @@ namespace Infrastructure.Repository.Lookups
 
         public async Task<List<Category>> GetAllCatgoriesWithSubCategory()
         {
-            return await _context.Category.Include(c => c.SubCategories).ToListAsync();
+            return await _context.Category.Include(c => c.SubCategories).AsNoTracking().ToListAsync();
 
         }
 
