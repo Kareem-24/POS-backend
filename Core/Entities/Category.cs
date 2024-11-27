@@ -9,7 +9,7 @@ namespace Core.Entities
     public class Category : EntityBase
     {
         public required string  Description { get; set; }
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
         public ICollection<SubCategory>? SubCategories { get; set; } 
 
 

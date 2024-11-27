@@ -19,5 +19,7 @@ namespace Infrastructure.Data
         public DbSet<Category> Category { get; set; }
         public DbSet<SubCategory> SubCategory { get; set; }
         public DbSet<Product> Product { get; set; }
+        public DbSet<Order> Order { get; set; }
+        public DbSet<OrderDetails> OrderDetails { get; set; }
     }
 }

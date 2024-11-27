@@ -19,7 +19,7 @@ namespace Core.Entities
         public decimal SellingPrice { get; set; }
         public string? Barcode { get; set; }
         public string? Image { get; set; }
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
         public int Quantity { get; set; }
 
     }

@@ -13,6 +13,6 @@ namespace Core.Entities
         [ForeignKey("CategoryId")]
         public required Category Category { get; set; }
         public required string Description { get; set; }
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }
