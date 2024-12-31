@@ -16,7 +16,9 @@ namespace Application.Services.Lookups
         IRequestHandler<GetAllProductsQuery, Result>,
         IRequestHandler<AddProductCommand, Result>,
         IRequestHandler<UpdateProductCommand, Result>,
-        IRequestHandler<HideProductCommand, Result>
+        IRequestHandler<HideProductCommand, Result>,
+        IRequestHandler<DeleteProductCommand, Result>,
+        IRequestHandler<SearchProductByNameOrCode, Result>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -28,31 +30,62 @@ namespace Application.Services.Lookups
 
         public async Task<Result> Handle(AddProductCommand request, CancellationToken cancellationToken)
         {
+            try
+            {
+                var existProduct = await _unitOfWork.Product.FindAsync(x=>x.Code == request.Code);
 
-            request.ID = await _unitOfWork.Product.GetNextIdAsync();
-            var product = _mapper.Map<Product>(request);
-            await _unitOfWork.Product.AddAsync(product);
-            await _unitOfWork.CompleteAsync();
-            return Result.SuccessResult(product.ID);
+                if (existProduct.Any())
+                {
+                    return Result.FailureResult("الكود موجود بالفعل");
+                }
+
+                request.ID = await _unitOfWork.Product.GetNextIdAsync();
+                var product = _mapper.Map<Product>(request);
+                await _unitOfWork.Product.AddAsync(product);
+                await _unitOfWork.CompleteAsync();
+                return Result.SuccessResult(product.ID);
+            }
+            catch (Exception ex)
+            {
+                return Result.FailureResult(ex.Message);
+            }
+
+
         }
 
         public async Task<Result> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
         {
-            if (request.ID <= 0)
+            try
             {
-                return Result.FailureResult("invalid product ID");
+                if (request.ID <= 0)
+                {
+                    return Result.FailureResult("invalid product ID");
+                }
+                var product = _mapper.Map<Product>(request);
+                await _unitOfWork.Product.UpdateAsync(product);
+                await _unitOfWork.CompleteAsync();
+                return Result.SuccessResult(product.ID);
+            }
+            catch (Exception ex)
+            {
+                return Result.FailureResult(ex.Message);
+
             }
 
-            var product = _mapper.Map<Product>(request);
-            await _unitOfWork.Product.UpdateAsync(product);
-            await _unitOfWork.CompleteAsync();
-            return Result.SuccessResult(product.ID);
         }
 
         public async Task<Result> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
         {
-            var productLst = await _unitOfWork.Product.GetAllAsync();
-            return Result.SuccessResult(productLst);
+            try
+            {
+                var productLst = await _unitOfWork.Product.GetAllAsync();
+                return Result.SuccessResult(productLst);
+            }
+            catch (Exception ex)
+            {
+                 return Result.FailureResult(ex.Message);
+            }
+
         }
 
         public async Task<Result> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
@@ -85,6 +118,52 @@ namespace Application.Services.Lookups
             await _unitOfWork.CompleteAsync();
             return Result.SuccessResult(product.ID);
         }
+
+        public async Task<Result> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
+        {
+
+            try
+            {
+                var productResult = await _unitOfWork.Product.FindAsync(x => x.ID == request.ID);
+                if (productResult == null)
+                {
+                    return Result.FailureResult("product not found");
+
+                }
+
+                var product = productResult.FirstOrDefault();
+                if (product == null)
+                {
+                    return Result.FailureResult("product not found");
+
+                }
+
+                await _unitOfWork.Product.DeleteAsync(product.ID);
+                await _unitOfWork.CompleteAsync();
+                return Result.SuccessResult(product.ID);
+            }
+
+            catch (Exception ex)
+            {
+                return Result.FailureResult(ex.Message);
+            }
+           
+        }
+
+
+        public async Task<Result> Handle(SearchProductByNameOrCode request, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var productLst = await _unitOfWork.Product.FindAsync(x => x.Description.Contains(request.Name) || x.Code.Contains(request.Name));
+                return Result.SuccessResult(productLst);
+            }
+            catch (Exception ex)
+            {
+                return Result.FailureResult(ex.Message);
+            }
+
+        }
     }
 
 
@@ -113,4 +192,16 @@ namespace Application.Services.Lookups
     {
         public required int ID { get; set; }
     }
+    public class DeleteProductCommand : IRequest<Result>
+    {
+        public required int ID { get; set; }
+    }
+
+    public class SearchProductByNameOrCode : IRequest<Result>
+    {
+        public required string Name { get; set; }
+
+    }
+
+
 }
