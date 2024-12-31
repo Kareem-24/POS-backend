@@ -23,7 +23,7 @@ namespace POS.Controllers.Lookups
         {
             var result = await _mediator.Send(command);
 
-            if (result != null && result.IsSuccess)
+            if (result != null)
             {
                 return Ok(result);
             }
