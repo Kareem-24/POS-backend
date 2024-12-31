@@ -73,5 +73,46 @@ namespace POS.Controllers.Lookups
 
             return BadRequest(result);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteProduct([FromBody] DeleteProductCommand command)
+        {
+            var result = await _mediator.Send(command);
+
+            if (result != null && result.IsSuccess)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> GetProductById([FromBody] GetProductByIdQuery command)
+        {
+            var result = await _mediator.Send(command);
+
+            if (result != null && result.IsSuccess)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SearchProductByNameOrCode([FromBody] SearchProductByNameOrCode command)
+        {
+            var result = await _mediator.Send(command);
+
+            if (result != null && result.IsSuccess)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
     }
 }
